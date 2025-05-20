@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Object Show Maker Program</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    #creepy-screen {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #220000;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #creepy-screen img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1em;
+      width: 300px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>The Object Show Maker Program</h1>
+  <p>
+    Hello! And welcome to the object show maker program, here you can put in your prompt detailing and talking about your object show idea, and TSM should make it a real astonishing masterpiece!
+  </p>
+  <input type="text" id="user-input" placeholder="Enter your text..." />
+  <button onclick="triggerEffect()">Submit</button>
+
+  <div id="creepy-screen">
+    <img src="https://media.discordapp.net/attachments/1374511083167158372/1374513955069886577/InShot_20250520_232725438.jpg?ex=682e5360&is=682d01e0&hm=75d406b4a33e4a7be359c961bbe040dc51dd2f85be01e5d0a5f1651ce4db052b&=&format=webp&width=1084&height=608" alt="Creepy Screen">
+  </div>
+
+  <audio id="scream-sound" src="https://raw.githubusercontent.com/FilenFolder/OSM/main/LOUD.mp3.flac" type="audio/flac"> </audio>
+
+  <script>
+    function triggerEffect() {
+      const screen = document.getElementById("creepy-screen");
+      const sound = document.getElementById("scream-sound");
+
+      screen.style.display = "flex";
+      sound.currentTime = 0;
+      sound.play();
+
+      setTimeout(() => {
+        screen.style.display = "none";
+        sound.pause();
+        sound.currentTime = 0;
+        document.getElementById("user-input").value = "";
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
