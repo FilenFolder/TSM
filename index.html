@@ -18,7 +18,7 @@
       height: 100vh;
       text-align: center;
     }
-    #creepy-screen {
+    #creepy-screen, #help-screen {
       display: none;
       position: fixed;
       top: 0;
@@ -30,7 +30,7 @@
       align-items: center;
       z-index: 9999;
     }
-    #creepy-screen img {
+    #creepy-screen img, #help-screen img {
       width: 100vw;
       height: 100vh;
       object-fit: cover;
@@ -61,12 +61,27 @@
     <img src="https://media.discordapp.net/attachments/1374511083167158372/1374513955069886577/InShot_20250520_232725438.jpg?ex=682e5360&is=682d01e0&hm=75d406b4a33e4a7be359c961bbe040dc51dd2f85be01e5d0a5f1651ce4db052b&=&format=webp&width=1084&height=608" alt="Creepy Screen">
   </div>
 
-  <audio id="scream-sound" src="https://raw.githubusercontent.com/FilenFolder/OSM/main/LOUD.mp3.flac" type="audio/flac"> </audio>
+  <div id="help-screen">
+    <img src="https://media.discordapp.net/attachments/1374511083167158372/1375574653552169070/IMG_20250523_205920.jpg?ex=68322f3a&is=6830ddba&hm=7463992b734e6e911f2156116609022b70a089f062f6b0b44802624db2e32f89&=&format=webp&width=1215&height=608" alt="Help Screen">
+  </div>
+
+  <audio id="scream-sound" src="https://raw.githubusercontent.com/FilenFolder/OSM/main/LOUD.mp3.flac" type="audio/flac"></audio>
 
   <script>
     function triggerEffect() {
+      const input = document.getElementById("user-input").value.trim().toLowerCase();
       const screen = document.getElementById("creepy-screen");
+      const helpScreen = document.getElementById("help-screen");
       const sound = document.getElementById("scream-sound");
+
+      if (input === "help") {
+        helpScreen.style.display = "flex";
+        setTimeout(() => {
+          helpScreen.style.display = "none";
+          document.getElementById("user-input").value = "";
+        }, 2500);
+        return;
+      }
 
       screen.style.display = "flex";
       sound.currentTime = 0;
@@ -76,9 +91,4 @@
         screen.style.display = "none";
         sound.pause();
         sound.currentTime = 0;
-        document.getElementById("user-input").value = "";
-      }, 2500);
-    }
-  </script>
-</body>
-</html>
+        docume
