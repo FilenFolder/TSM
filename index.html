@@ -18,17 +18,25 @@
       height: 100vh;
       text-align: center;
     }
-    #creepy-screen, #help-screen {
+    #creepy-screen, #help-screen, #morse-screen {
       display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: #220000;
       justify-content: center;
       align-items: center;
       z-index: 9999;
+    }
+    #creepy-screen {
+      background: #220000;
+    }
+    #help-screen {
+      background: #111;
+    }
+    #morse-screen {
+      background: black;
     }
     #creepy-screen img, #help-screen img {
       width: 100vw;
@@ -58,21 +66,27 @@
   <button id="submit-button">Submit</button>
 
   <div id="creepy-screen">
-    <img src="https://raw.githubusercontent.com/FilenFolder/OSM/main/LEAVE.webp" alt="Creepy Screen">
+    <img src="https://raw.githubusercontent.com/FilenFolder/TSM/main/LEAVE.webp" alt="Creepy Screen">
   </div>
 
   <div id="help-screen">
-    <img src="https://raw.githubusercontent.com/FilenFolder/OSM/main/HELP.webp" alt="Help Screen">
+    <img src="https://raw.githubusercontent.com/FilenFolder/TSM/main/HELP.webp" alt="Help Screen">
   </div>
 
-  <audio id="scream-sound" src="https://raw.githubusercontent.com/FilenFolder/OSM/main/LOUD.mp3.flac" type="audio/flac"></audio>
+  <div id="morse-screen"></div>
+
+  <audio id="scream-sound" src="https://raw.githubusercontent.com/FilenFolder/TSM/main/LOUD.mp3.flac" type="audio/flac"></audio>
+  <audio id="morse-sound" src="https://raw.githubusercontent.com/FilenFolder/TSM/main/morse.wav" type="audio/wav"></audio>
 
   <script>
     document.getElementById("submit-button").addEventListener("click", function triggerEffect() {
       const input = document.getElementById("user-input").value.trim().toLowerCase();
-      const screen = document.getElementById("creepy-screen");
+      const creepyScreen = document.getElementById("creepy-screen");
       const helpScreen = document.getElementById("help-screen");
-      const sound = document.getElementById("scream-sound");
+      const morseScreen = document.getElementById("morse-screen");
+
+      const screamSound = document.getElementById("scream-sound");
+      const morseSound = document.getElementById("morse-sound");
 
       if (input === "help") {
         helpScreen.style.display = "flex";
@@ -83,14 +97,31 @@
         return;
       }
 
-      screen.style.display = "flex";
-      sound.currentTime = 0;
-      sound.play();
+      if (input === "won't") {
+        morseScreen.style.display = "flex";
+        morseSound.currentTime = 0;
+        morseSound.play();
+        morseSound.onended = () => {
+          morseScreen.style.display = "none";
+          document.getElementById("user-input").value = "";
+        };
+        return;
+      }
+
+      if (input === "demons of hell") {
+        window.location.href = "https://youtube.com/playlist?list=PLtRVKRD2kdqKfgvhmIQ4KbWTo9aHxrLO6&feature=shared";
+        return;
+      }
+
+      // Default creepy screen
+      creepyScreen.style.display = "flex";
+      screamSound.currentTime = 0;
+      screamSound.play();
 
       setTimeout(() => {
-        screen.style.display = "none";
-        sound.pause();
-        sound.currentTime = 0;
+        creepyScreen.style.display = "none";
+        screamSound.pause();
+        screamSound.currentTime = 0;
         document.getElementById("user-input").value = "";
       }, 2500);
     });
