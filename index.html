@@ -37,6 +37,9 @@
     }
     #morse-screen {
       background: black;
+      color: white;
+      font-size: 2rem;
+      font-family: monospace;
     }
     #creepy-screen img, #help-screen img {
       width: 100vw;
@@ -66,17 +69,19 @@
   <button id="submit-button">Submit</button>
 
   <div id="creepy-screen">
-    <img src="https://raw.githubusercontent.com/FilenFolder/TSM/main/LEAVE.webp" alt="Creepy Screen">
+    <img src="https://raw.githubusercontent.com/FilenFolder/OSM/main/LEAVE.webp" alt="Creepy Screen">
   </div>
 
   <div id="help-screen">
-    <img src="https://raw.githubusercontent.com/FilenFolder/TSM/main/HELP.webp" alt="Help Screen">
+    <img src="https://raw.githubusercontent.com/FilenFolder/OSM/main/HELP.webp" alt="Help Screen">
   </div>
 
-  <div id="morse-screen"></div>
+  <div id="morse-screen">
+    <span id="morse-text"></span>
+  </div>
 
-  <audio id="scream-sound" src="https://raw.githubusercontent.com/FilenFolder/TSM/main/LOUD.mp3.flac" type="audio/flac"></audio>
-  <audio id="morse-sound" src="https://raw.githubusercontent.com/FilenFolder/TSM/main/morse.wav" type="audio/wav"></audio>
+  <audio id="scream-sound" src="https://raw.githubusercontent.com/FilenFolder/OSM/main/LOUD.mp3.flac" type="audio/flac"></audio>
+  <audio id="morse-sound" src="https://raw.githubusercontent.com/FilenFolder/OSM/main/morse.wav" type="audio/wav"></audio>
 
   <script>
     document.getElementById("submit-button").addEventListener("click", function triggerEffect() {
@@ -84,10 +89,12 @@
       const creepyScreen = document.getElementById("creepy-screen");
       const helpScreen = document.getElementById("help-screen");
       const morseScreen = document.getElementById("morse-screen");
+      const morseText = document.getElementById("morse-text");
 
       const screamSound = document.getElementById("scream-sound");
       const morseSound = document.getElementById("morse-sound");
 
+      // HELP Trigger
       if (input === "help") {
         helpScreen.style.display = "flex";
         setTimeout(() => {
@@ -97,7 +104,9 @@
         return;
       }
 
+      // WON'T Trigger
       if (input === "won't") {
+        morseText.textContent = ""; // clear any text
         morseScreen.style.display = "flex";
         morseSound.currentTime = 0;
         morseSound.play();
@@ -108,12 +117,25 @@
         return;
       }
 
+      // DEMONS OF HELL Trigger
       if (input === "demons of hell") {
         window.location.href = "https://youtube.com/playlist?list=PLtRVKRD2kdqKfgvhmIQ4KbWTo9aHxrLO6&feature=shared";
         return;
       }
 
-      // Default creepy screen
+      // 75 486 675 552 Trigger
+      if (input === "75 486 675 552") {
+        morseText.textContent = "inkspotdoyouknowthem";
+        morseScreen.style.display = "flex";
+        setTimeout(() => {
+          morseScreen.style.display = "none";
+          morseText.textContent = "";
+          document.getElementById("user-input").value = "";
+        }, 5000);
+        return;
+      }
+
+      // DEFAULT creepy screen
       creepyScreen.style.display = "flex";
       screamSound.currentTime = 0;
       screamSound.play();
