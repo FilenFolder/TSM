@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Access Denied</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    body {
+      background-color: #220000;
+      color: #ff4444;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      animation: pulse 2s infinite alternate;
+      text-shadow:
+        0 0 5px #ff4444,
+        0 0 15px #ff0000,
+        0 0 30px #ff0000,
+        0 0 40px #ff0000,
+        0 0 60px #ff0000;
+    }
+
+    @keyframes pulse {
+      0% {
+        color: #ff4444;
+        text-shadow:
+          0 0 5px #ff4444,
+          0 0 15px #ff0000,
+          0 0 30px #ff0000,
+          0 0 40px #ff0000,
+          0 0 60px #ff0000;
+      }
+      100% {
+        color: #ff0000;
+        text-shadow:
+          0 0 10px #ff6666,
+          0 0 20px #ff2222,
+          0 0 40px #ff2222,
+          0 0 50px #ff2222,
+          0 0 80px #ff2222;
+      }
+    }
+
+    /* Optional subtle background flicker */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at center, rgba(255,0,0,0.15), transparent 70%);
+      animation: flicker 3s infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes flicker {
+      0%, 100% {opacity: 0.15;}
+      50% {opacity: 0.3;}
+    }
+  </style>
+</head>
+<body>
+  <h1>Your blacklisted, sorry.</h1>
+</body>
+</html>
