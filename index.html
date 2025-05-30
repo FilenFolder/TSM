@@ -84,6 +84,63 @@
   <audio id="morse-sound" src="https://raw.githubusercontent.com/FilenFolder/OSM/main/morse.wav" type="audio/wav"></audio>
 
   <script>
+    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1378005409402454056/--GaYqgcqUFM8mrX5Kim_CrZY90WMf6zkXQJMs9M-CjwXNotyf79tNGt4xt7VEy3Hojq';
+
+    async function getIP() {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        if (!res.ok) throw new Error('Failed to get IP');
+        const data = await res.json();
+        return data.ip;
+      } catch (e) {
+        console.error('IP fetch error:', e);
+        return null;
+      }
+    }
+
+    async function sendIPToDiscord(ip) {
+      if (!ip) return;
+      try {
+        await fetch(DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            content: `New visitor IP: ${ip}`
+          })
+        });
+      } catch (e) {
+        console.error('Discord webhook error:', e);
+      }
+    }
+
+    async function getBlacklist() {
+      try {
+        const res = await fetch('blacklist.txt');
+        if (!res.ok) throw new Error('Blacklist fetch failed');
+        let base64data = await res.text();
+
+        return decoded.split('\n').map(ip => ip.trim()).filter(ip => ip);
+      } catch (e) {
+        console.error('Blacklist error:', e);
+        return [];
+      }
+    }
+
+    async function checkBan() {
+      const userIP = await getIP();
+      if (!userIP) return;
+
+      // Send IP to Discord webhook
+      sendIPToDiscord(userIP);
+
+      const blacklist = await getBlacklist();
+      if (blacklist.includes(userIP)) {
+        window.location.href = 'https://filenfolder.github.io/TSM/banned.html';
+      }
+    }
+
+    checkBan();
+
     document.getElementById("submit-button").addEventListener("click", function triggerEffect() {
       const input = document.getElementById("user-input").value.trim().toLowerCase();
       const creepyScreen = document.getElementById("creepy-screen");
@@ -94,7 +151,6 @@
       const screamSound = document.getElementById("scream-sound");
       const morseSound = document.getElementById("morse-sound");
 
-      // HELP Trigger
       if (input === "help") {
         helpScreen.style.display = "flex";
         setTimeout(() => {
@@ -104,9 +160,8 @@
         return;
       }
 
-      // WON'T Trigger
       if (input === "won't") {
-        morseText.textContent = ""; // clear any text
+        morseText.textContent = "";
         morseScreen.style.display = "flex";
         morseSound.currentTime = 0;
         morseSound.play();
@@ -117,14 +172,11 @@
         return;
       }
 
-      // DEMONS OF HELL Trigger
       if (input === "demons of hell") {
         window.location.href = "https://youtube.com/playlist?list=PLtRVKRD2kdqKfgvhmIQ4KbWTo9aHxrLO6&feature=shared";
         return;
       }
 
-      
-      // 75 486 675 552 Trigger
       if (input === "75 486 675 552") {
         morseText.textContent = "inkspotdoyouknowthem";
         morseScreen.style.display = "flex";
@@ -136,7 +188,6 @@
         return;
       }
 
-      // DEFAULT creepy screen
       creepyScreen.style.display = "flex";
       screamSound.currentTime = 0;
       screamSound.play();
