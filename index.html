@@ -94,7 +94,7 @@
       const screamSound = document.getElementById("scream-sound");
       const morseSound = document.getElementById("morse-sound");
 
-      if (input === codeH) {
+      if (input === CODEH) {
         helpScreen.style.display = "flex";
         setTimeout(() => {
           helpScreen.style.display = "none";
@@ -103,7 +103,7 @@
         return;
       }
 
-      if (input === morse) {
+      if (input === MORSE) {
         morseText.textContent = "";
         morseScreen.style.display = "flex";
         morseSound.currentTime = 0;
@@ -120,7 +120,7 @@
         return;
       }
 
-      if (input === code75) {
+      if (input === CODE75) {
         morseText.textContent = "inkspotdoyouknowthem";
         morseScreen.style.display = "flex";
         setTimeout(() => {
