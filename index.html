@@ -94,7 +94,7 @@
       const screamSound = document.getElementById("scream-sound");
       const morseSound = document.getElementById("morse-sound");
 
-      if (input === "help") {
+      if (input === codeH) {
         helpScreen.style.display = "flex";
         setTimeout(() => {
           helpScreen.style.display = "none";
@@ -103,7 +103,7 @@
         return;
       }
 
-      if (input === "won't") {
+      if (input === morse) {
         morseText.textContent = "";
         morseScreen.style.display = "flex";
         morseSound.currentTime = 0;
@@ -115,12 +115,12 @@
         return;
       }
 
-      if (input === "demons of hell") {
+      if (input === PLAYLIST) {
         window.location.href = "https://youtube.com/playlist?list=PLtRVKRD2kdqKfgvhmIQ4KbWTo9aHxrLO6&feature=shared";
         return;
       }
 
-      if (input === "75 486 675 552") {
+      if (input === code75) {
         morseText.textContent = "inkspotdoyouknowthem";
         morseScreen.style.display = "flex";
         setTimeout(() => {
